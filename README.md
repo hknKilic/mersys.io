@@ -25,7 +25,7 @@ The easiest way to get started is to clone the repository:
 ```bash
 # File > New > Project From Version Control 
 # Copy to URL
-git@github.com: https://github.com/TechnoTeam-17/ParaBank_Projesi.git
+git@github.com: https://github.com/TechnoTeam-17/mersys.io
 # open project at Intellij
 # select project JDK
 jdk1.8
