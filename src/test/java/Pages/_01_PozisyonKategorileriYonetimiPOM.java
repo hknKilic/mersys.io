@@ -1,4 +1,7 @@
 package Pages;
 
-public class _01_PozisyonKategorileriYonetimiPOM {
+import Utilities.Events;
+
+public class _01_PozisyonKategorileriYonetimiPOM extends Events {
+
 }
