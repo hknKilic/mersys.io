@@ -96,14 +96,14 @@ List of Dependencies
 |               |-- Locators, Page Object Model Files
 |           |-- Runners
 |               |-- CrossBrowserTest
-|               |-- CrossBrowserTest.xml
 |               |-- ExtentReport
 |           |-- StepDefinitions
 |               |-- Test Class Files
 |           |-- Utilities
 |               |-- Events
 |               |-- Hooks
-|               |-- WBA          
+|               |-- WBA
+|           |-- XML
 |       |-- resources
 |       |-- results
 |           |-- reports*
