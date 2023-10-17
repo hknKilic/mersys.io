@@ -7,9 +7,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 
-public class _00_LoginPOM extends Events {
+public class POM_00 extends Events {
 
-    public _00_LoginPOM() {
+    public POM_00() {
         PageFactory.initElements(WBA.getDriver(), this);
     }
 
