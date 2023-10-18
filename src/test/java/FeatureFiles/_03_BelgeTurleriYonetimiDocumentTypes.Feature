@@ -13,5 +13,5 @@ Feature: Document Types Management
 
     And user edit documents
     And user execute documents
-    Then user delete document
+    Then user delete documents
     Then success message should be succesfully displayed
