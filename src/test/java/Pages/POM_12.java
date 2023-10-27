@@ -2,63 +2,81 @@ package Pages;
 
 import Utilities.Events;
 import Utilities.WBA;
+import javafx.scene.input.InputMethodTextRun;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class POM_12 extends Events {
 
-    public WebElement nationalitys;
-    public WebElement description;
-    public WebElement integrationsCode;
-    public WebElement priority;
+    public WebElement sendName;
+    public InputMethodTextRun positionNameText;
 
     {
         PageFactory.initElements(WBA.getDriver(), this);
     }
 
-    @FindBy(xpath="(//span[text()='Setup'])[1]")
+    @FindBy(xpath = "(//span[text()='Setup'])[1]")
     public WebElement setup;
-
     @FindBy(xpath = "//span[text()='Parameters']")
     public WebElement parameters;
 
-    //span[text()='Discounts']
+    @FindBy(xpath = "(//span[text()='Nationalities'])[1]")
+    public WebElement nationalities;
 
-    @FindBy(xpath = "//span[text()='Nationalities']")
-    private WebElement nationalities;
-
-    @FindBy(xpath = "//span[text()='Discounts']")
-    private WebElement discounts;
-
-    @FindBy(xpath="//ms-add-button[contains(@tooltip,'ADD')]//button")
+    @FindBy(xpath = "//ms-add-button[contains(@tooltip,'ADD')]//button")
     public WebElement addButton;
-    @FindBy(xpath="//ms-text-field[@formcontrolname='name']//input")
-    public WebElement nameInput;
-    @FindBy(xpath="//ms-text-field[@formcontrolname='code' ]//input")
-    public WebElement codeInput;
-    @FindBy(xpath="//ms-save-button/button")
-    public WebElement saveButton;
-    @FindBy(xpath="//div[contains(text(),'successfully')]")
+    @FindBy(xpath = "//div[contains(text(),'successfully')]")
     public WebElement successMessage;
 
-    @FindBy(xpath ="//ms-text-field[@formcontrolname='shortName']//input" )
-    public WebElement ShortName;
+    @FindBy(xpath = "//ms-edit-button")
+    public WebElement editButton;
 
-    @FindBy(xpath="//div[contains(text(),'already exists')]")
-    public WebElement alreadyExist;
+    @FindBy(css = "[formcontrolname='description']")
+    public WebElement description;
 
-    @FindBy(xpath="//mat-form-field//input[@data-placeholder='Name']")
-    public WebElement searchInput;
+    @FindBy(xpath = "(//input[@data-placeholder='Description'])[2]")
+    public WebElement descriptionName;
 
-    @FindBy(xpath="//ms-search-button//button")
+    @FindBy(xpath = "//ms-save-button/button")
+    public WebElement saveButton;
+
+    @FindBy(xpath = "(//ms-delete-button//button)[1]")
+    public WebElement deleteImageButton;
+
+    @FindBy(xpath = "//button[@type='submit']")
+    public WebElement deleteDialogButton;
+
+    @FindBy(xpath = "(//input[@data-placeholder='Integration Code'])[2]")
+    public WebElement integrationCode;
+
+    @FindBy(xpath = "//span[text()='Save']")
+    public WebElement saveEditButton;
+
+    @FindBy(css = "input[data-placeholder='Priority']")
+    public WebElement priority;
+
+    @FindBy(css = "[data-placeholder='Description']")
+    public WebElement descriptionSearch;
+
+    @FindBy(xpath = "//ms-search-button//button")
     public WebElement searchButton;
 
-    @FindBy(xpath="(//ms-delete-button//button)[1]")
-    public WebElement deleteImageBtn;
 
-    @FindBy(xpath="//button[@type='submit']")
-    public WebElement deleteDialogBtn;
+    @FindBy(css = "[data-placeholder='Name']")
+    public WebElement searchBox;
+
+    public WebElement getWebElement(String strElement) {
+        switch (strElement) {
+            case "setup":
+                return this.setup;
+            case "parameters":
+                return this.parameters;
+            case "nationalities":
+                return this.nationalities;
+        }
+        return null;
+    }
 
 
 }

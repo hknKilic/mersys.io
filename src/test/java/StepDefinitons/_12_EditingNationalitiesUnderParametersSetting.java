@@ -1,59 +1,87 @@
 package StepDefinitons;
 
-import Pages.POM_11;
-import Pages.POM_12;
-import Utilities.Events;
-import io.cucumber.java.en.*;
 
-public class _12_EditingNationalitiesUnderParametersSetting extends Events {
+import Pages.POM_12;
+import io.cucumber.datatable.DataTable;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.Assert;
+
+import java.util.List;
+
+public class _12_EditingNationalitiesUnderParametersSetting extends POM_12 {
 
     POM_12 lc = new POM_12();
 
-    @When("the User is on the page to add nationalities.")
-    public void theUserIsOnThePageToAddNationalities() {
+    String natNameStr = "hakan06";
+    String newNatNameStr = "hkn2edit";
 
-        lc.myClick(lc.nationalitys);
+    @When("the user navigates to nationalities")
+    public void theUserNavigatesToNationalities(DataTable links) {
+        List<String> strLinkList = links.asList(String.class);
+        for (int i = 0; i < strLinkList.size(); i++) {
+            WebElement linkWebElement = lc.getWebElement(strLinkList.get(i));
+            lc.myClick(linkWebElement);
+        }
     }
 
-    @And("the User enters the required information to add a new nationality.")
-    public void theUserEntersTheRequiredInformationToAddANewNationality() {
-
+    @And("the user adds a nationality")
+    public void theUserAddsANationality() {
         lc.myClick(lc.addButton);
-        lc.mySendKeys(lc.nameInput,"ukranien");
-
-    }
-
-    @Then("the nationality should be added.")
-    public void theNationalityShouldBeAdded() {
+        lc.mySendKeys(lc.sendName, natNameStr);
         lc.myClick(lc.saveButton);
     }
 
-    @When("the User is on the page to edit nationalities")
-    public void theUserIsOnThePageToEditNationalities() {
-
-
-
-        lc.mySendKeys(lc.nameInput,"iran");
-
+    @Then("the nationality should be added successfully")
+    public void theNationalityShouldBeAddedSuccessfully() {
+        lc.verifyContainsText(lc.successMessage, "success");
     }
 
-    @And("the User updates the valid information for an existing nationality")
-    public void theUserUpdatesTheValidInformationForAnExistingNationality() {
+    @And("the user edits the nationality")
+    public void theUserEditsTheNationality() {
+        lc.mySendKeys(lc.searchBox, natNameStr);
+        lc.myClick(lc.searchButton);
+        lc.wait.until(ExpectedConditions.elementToBeClickable(lc.searchButton));
+        lc.myClick(lc.editButton);
+        lc.mySendKeys(lc.sendName, newNatNameStr);
         lc.myClick(lc.saveButton);
     }
 
-    @When("the User is on the page to delete nationalities")
-    public void theUserIsOnThePageToDeleteNationalities() {
-        lc.myClick(lc.deleteDialogBtn);
+    @Then("the nationality should be edited successfully")
+    public void theNationalityShouldBeEditedSuccessfully() {
+        lc.verifyContainsText(lc.successMessage, "success");
     }
 
-    @And("the User initiates the process to delete an existing nationality")
-    public void theUserInitiatesTheProcessToDeleteAnExistingNationality() {
-        lc.mySendKeys(lc.nameInput,"germany");
+    @And("the user uses the search function to find a nationality")
+    public void theUserUsesTheSearchFunctionToFindANationality() {
+        lc.mySendKeys(lc.searchBox, newNatNameStr);
+        lc.myClick(lc.searchButton);
+        lc.wait.until(ExpectedConditions.elementToBeClickable(lc.searchButton));
     }
 
-    @Then("the nationality should be deleted, and the User completes the verification step")
-    public void theNationalityShouldBeDeletedAndTheUserCompletesTheVerificationStep() {
-        lc.verifyContainsText(lc.deleteDialogBtn,"successfully deleted");
+    @Then("the matching nationalities should be displayed successfully")
+    public void theMatchingNationalitiesShouldBeDisplayedSuccessfully() {
+        Assert.assertEquals(lc.positionNameText.getText(), newNatNameStr);
+    }
+
+    @And("the user deletes a nationality")
+    public void theUserDeletesANationality() {
+        lc.mySendKeys(lc.searchBox, newNatNameStr);
+        lc.myClick(lc.searchButton);
+        lc.wait.until(ExpectedConditions.elementToBeClickable(lc.searchButton));
+        lc.myClick(lc.deleteImageButton);
+        lc.myClick(lc.deleteDialogButton);
+    }
+
+    @Then("the nationality should be deleted successfully")
+    public void theNationalityShouldBeDeletedSuccessfully() {
+        lc.verifyContainsText(lc.successMessage, "success");
     }
 }
+
+
+
+

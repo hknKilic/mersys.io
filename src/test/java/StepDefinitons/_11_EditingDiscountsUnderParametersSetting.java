@@ -1,67 +1,83 @@
 package StepDefinitons;
 
-import Pages.POM_00;
 import Pages.POM_11;
 import Utilities.Events;
-import io.cucumber.java.en.*;
+import io.cucumber.datatable.DataTable;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class _11_EditingDiscountsUnderParametersSetting extends Events {
+import java.util.List;
+
+public class _11_EditingDiscountsUnderParametersSetting extends POM_11 {
 
     POM_11 lc = new POM_11();
-    @Given("Navigate to SetUp and Paramater Categories")
-    public void navigateToSetUpAndParamaterCategories() {
 
-        lc.myClick(lc.setup);
-        lc.myClick(lc.parameters);
+    String descriptionName = "hkn06";
+    String integrationCode = "k3";
+    String priority = "%12";
+    String editDescriptionName = "umt2edt";
+    String editIntegrationCode = "g3edit";
+    String editPriority = "%11";
+
+    @When("the user navigates to setup")
+    public void theUserNavigatesToSetup(DataTable dt) {
+        List<String> discountList = dt.asList(String.class);
+        for (int i = 0; i <discountList.size(); i++) {
+            WebElement clickElement = lc.getWebElement(discountList.get(i));
+            lc.myClick(clickElement);
+        }
     }
 
-    @When("the User clicks on the Discount tab")
-    public void theUserClicksOnTheDiscountTab() {
-        lc.myClick(lc.discauntTab);
-    }
-
-    @And("the User fills in the necessary information to add a new discount")
-    public void theUserFillsInTheNecessaryInformationToAddANewDiscount() {
+    @And("the user creates a new discount")
+    public void theUserCreatesANewDiscount() {
         lc.myClick(lc.addButton);
-        lc.mySendKeys(lc.description,"hakan06");
-        lc.mySendKeys(lc.integrationsCode,"124");
-        lc.mySendKeys(lc.priority,"625");
-
-
-    }
-
-    @Then("the discount should be added")
-    public void theDiscountShouldBeAdded() {
+        lc.mySendKeys(lc.descriptionName, descriptionName);
+        lc.mySendKeys(lc.integrationCode, integrationCode);
+        lc.mySendKeys(lc.priority, priority + Keys.ENTER);
         lc.myClick(lc.saveButton);
     }
 
-    @And("the User updates the necessary information for an existing discount")
-    public void theUserUpdatesTheNecessaryInformationForAnExistingDiscount() {
-
-        lc.myClick(lc.addButton);
-        lc.mySendKeys(lc.description,"umut29");
-        lc.mySendKeys(lc.integrationsCode,"785");
-        lc.mySendKeys(lc.priority,"542");
+    @Then("the discount document should be added successfully")
+    public void theDiscountDocumentShouldBeAddedSuccessfully() {
+        lc.verifyContainsText(lc.successMessage, "success");
     }
 
-    @Then("the changes should be saved")
-    public void theChangesShouldBeSaved() {
-
+    @And("the user edits an existing new discount")
+    public void theUserEditsAnExistingNewDiscount() {
+        lc.mySendKeys(lc.descriptionSearch, descriptionName);
+        lc.myClick(lc.searchButton);
+        lc.wait.until(ExpectedConditions.elementToBeClickable(lc.searchButton));
+        lc.myClick(lc.editButton);
+        lc.mySendKeys(lc.descriptionName, editDescriptionName);
+        lc.mySendKeys(lc.integrationCode, editIntegrationCode);
+        lc.mySendKeys(lc.priority, editPriority + Keys.ENTER);
         lc.myClick(lc.saveButton);
     }
 
-    @And("the User initiates the process to delete an existing discount")
-    public void theUserInitiatesTheProcessToDeleteAnExistingDiscount() {
+    @Then("the new discount should be edited successfully")
+    public void theNewDiscountShouldBeEditedSuccessfully() {
 
-        lc.myClick(lc.deleteDialogBtn);
+        lc.verifyContainsText(lc.successMessage, "success");
     }
 
-    @Then("the discount should be deleted, and the User completes the verification step")
-    public void theDiscountShouldBeDeletedAndTheUserCompletesTheVerificationStep() {
-        lc.verifyContainsText(lc.deleteDialogBtn,"successfully deleted");
+    @And("the user deletes an existing new discount")
+    public void theUserDeletesAnExistingNewDiscount() {
+        lc.mySendKeys(lc.descriptionSearch, editDescriptionName);
+        lc.myClick(lc.searchButton);
+        lc.wait.until(ExpectedConditions.elementToBeClickable(lc.searchButton));
+        lc.myClick(lc.deleteImageButton);
+        lc.myClick(lc.deleteDialogButton);
+    }
+
+    @Then("the new discount should be deleted successfully")
+    public void theNewDiscountShouldBeDeletedSuccessfully() {
+        lc.verifyContainsText(lc.successMessage, "success");
     }
 }
-
 
 
 

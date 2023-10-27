@@ -1,27 +1,43 @@
-Feature:Nationalities Functionality
+@SmokeTest @Regression
+Feature: Editing Nationalities
 
   Background:
 
-    Given Navigate to campus
-    When Enter username and password and click login button
-    Then User should login successfully
+    Given Navigate to Campus
+    When Enter username and password click login button with ApachePOI
+      | username    |
+      | password    |
+      | loginButton |
+    Then User should successfully
 
-  Scenario:
-  Adding Nationalities
+  Scenario: Adding a Nationality
+    When the user navigates to nationalities
+      | setup         |
+      | parameters    |
+      | nationalities |
+    And the user adds a nationality
+    Then the nationality should be added successfully
 
-    Given Navigate to SetUp and Paramater Categories
-    When the User is on the page to add nationalities.
-    And the User enters the required information to add a new nationality.
-    Then the nationality should be added.
-  Scenario: Editing Nationalities
+  Scenario: Editing a Nationality
+    When the user navigates to nationalities
+      | setup         |
+      | parameters    |
+      | nationalities |
+    And the user edits the nationality
+    Then the nationality should be edited successfully
 
-    Given Navigate to SetUp and Paramater Categories
-    When the User is on the page to edit nationalities
-    And the User updates the valid information for an existing nationality
-    Then the changes should be saved
-  Scenario: Deleting Nationalities
+  Scenario: Searching for Nationalities
+    When the user navigates to nationalities
+      | setup         |
+      | parameters    |
+      | nationalities |
+    And the user uses the search function to find a nationality
+    Then the matching nationalities should be displayed successfully
 
-    Given Navigate to SetUp and Paramater Categories
-    When the User is on the page to delete nationalities
-    And the User initiates the process to delete an existing nationality
-    Then the nationality should be deleted, and the User completes the verification step
+  Scenario: Deleting a Nationality
+    When the user navigates to nationalities
+      | setup         |
+      | parameters    |
+      | nationalities |
+    And the user deletes a nationality
+    Then the nationality should be deleted successfully

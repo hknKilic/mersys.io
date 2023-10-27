@@ -1,28 +1,35 @@
-Feature:Discounts Functionality
+@SmokeTest @Regression
+Feature: Editing Discounts Unter Parameters
 
   Background:
 
-    Given Navigate to campus
-    When Enter username and password and click login button
-    Then User should login successfully
+    Given Navigate to Campus
+    When Enter username and password click login button with ApachePOI
+      | username    |
+      | password    |
+      | loginButton |
+    Then User should successfully
 
-  Scenario: Adding Discounts
+  Scenario: Create a new Discount
+    When the user navigates to setup
+      | setup           |
+      | parametersSetup |
+      | discounts       |
+    And the user creates a new discount
+    Then the discount document should be added successfully
 
-    Given Navigate to SetUp and Paramater Categories
-    When the User clicks on the Discount tab
-    And the User fills in the necessary information to add a new discount
-    Then the discount should be added
+  Scenario: Edit a new Discount
+    When the user navigates to setup
+      | setup           |
+      | parametersSetup |
+      | discounts       |
+    And the user edits an existing new discount
+    Then the new discount should be edited successfully
 
-  Scenario: Editing Discounts
-
-    Given Navigate to Set Up Categories
-    When the User clicks on the Discount tab
-    And the User updates the necessary information for an existing discount
-    Then the changes should be saved
-
-  Scenario: Deleting Discounts
-
-    Given Navigate to Set Up Categories
-    When the User clicks on the Discount tab
-    And the User initiates the process to delete an existing discount
-    Then the discount should be deleted, and the User completes the verification step
+  Scenario: Delete a new Discount
+    When the user navigates to setup
+      | setup           |
+      | parametersSetup |
+      | discounts       |
+    And the user deletes an existing new discount
+    Then the new discount should be deleted successfully
